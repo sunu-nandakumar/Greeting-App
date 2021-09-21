@@ -79,6 +79,18 @@ public class GreetingController {
 	public ResponseEntity<String> getMessage() {
 	    return new ResponseEntity<>(greetingService.getMessage(), HttpStatus.OK);
 	}
+	/**
+	 * Purpose : Ability to return message using GET method from the service class
+	 * @param fname
+	 * @param lname
+	 * @return
+	 */
+
+	@GetMapping(value = "/getGreetingMessage")
+	public ResponseEntity<String> greeting(@RequestParam(value = "fname", defaultValue = "World") String fname,
+			@RequestParam(value = "lname", defaultValue = "") String lname) {
+		return new ResponseEntity<>(greetingService.getGreeting(fname, lname), HttpStatus.OK);
+	}
 	
 	
 
