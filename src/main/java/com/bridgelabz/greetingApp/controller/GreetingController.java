@@ -2,6 +2,9 @@ package com.bridgelabz.greetingApp.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.greetingApp.entity.GreetingEntity;
+import com.bridgelabz.greetingApp.service.GreetingService;
 
 @RestController
 public class GreetingController {
@@ -58,6 +62,23 @@ public class GreetingController {
     public GreetingEntity sayHello(@PathVariable int counter, @RequestParam(value = "content") String contentName) {
 		return new GreetingEntity(counter, String.format(template, contentName));
     }
+	/**
+	 * Purpose : initialising and creating object for GreetingService.class
+	 */
+	
+	@Autowired
+	private GreetingService greetingService;
+	
+	/**
+	 * Purpose : Ability to return message using GET method from the service class
+	 * 
+	 * @return
+	 */
+	
+	@GetMapping(value = "/getMessage")
+	public ResponseEntity<String> getMessage() {
+	    return new ResponseEntity<>(greetingService.getMessage(), HttpStatus.OK);
+	}
 	
 	
 
