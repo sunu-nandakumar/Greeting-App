@@ -109,6 +109,10 @@ public class GreetingController {
 	public ResponseEntity<GreetingDTO> addGreeting(@RequestBody GreetingDTO greeting) {
 	    return new ResponseEntity<>(greetingService.addGreeting(greeting), HttpStatus.OK);
 	}
+	@GetMapping(value = "/getGreetingByID")
+	public ResponseEntity<String> getEmployeeByID(@RequestParam(name = "id") int id) {
+		return new ResponseEntity<>(greetingService.getEmployeeByID(id), HttpStatus.OK);
+	}
 	
 	
 

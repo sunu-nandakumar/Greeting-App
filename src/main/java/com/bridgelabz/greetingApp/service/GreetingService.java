@@ -1,6 +1,7 @@
 package com.bridgelabz.greetingApp.service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,55 @@ public class GreetingService {
 		return greetingList;
 	}
 
-	
-	
+	/**
+	 * Purpose : Ability to get greeting message by id
+	 * @param id
+	 * @return
+	 */
+
+   public String getEmployeeByID(int id) {
+		AtomicReference<String> greetings = new AtomicReference<>("");
+		greetingList.stream()
+				.filter(greetingElement -> greetingElement.getId() == id)
+				.forEach(greetingElement -> {
+					greetings.set(greetingElement.getMessage());
+			});
+		return String.valueOf(greetings);
+   }
+
+   /**
+	 * Purpose : To Edit a Greeting Messages in the Repository.
+	 * @param id
+	 * @param message
+	 * @return
+	 */
+
+	public GreetingDTO updateGreeting(int id, String message) {
+		GreetingDTO greeting = findEmployeeById(id);
+		greeting.setMessage(message);
+		return greeting;
+	}
+
+	/**
+	 * Purpose : To find the ID in the Greeting Repository.
+	 * @param id
+	 * @return
+	 */
+
+	private GreetingDTO findEmployeeById(int id) {
+		return greetingList.stream()
+				.filter(greetingElement -> greetingElement.getId() == id).findFirst()
+				.orElseThrow(() -> new RuntimeException("Unable to find any greeting"));
+	}
+	/**
+	 * Purpose : To Delete a Greeting Messages in the Repository.
+	 * @param id
+	 * @return
+	 */
+
+	public String deleteGreeting(int id) {
+		GreetingDTO greeting = findEmployeeById(id);
+		greetingList.remove(greeting);
+		return "Greeting deleted successfully";
+	}
 }

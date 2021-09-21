@@ -1,5 +1,9 @@
 package com.bridgelabz.greetingApp.dto;
 
-public class GreetingDTO {
+import lombok.Data;
 
+@Data
+public class GreetingDTO {
+	private int id;
+	private String message;
 }
