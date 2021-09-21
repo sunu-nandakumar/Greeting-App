@@ -39,7 +39,7 @@ public class GreetingController {
 	 */
 	
 	@PostMapping("/postGreeting")
-    public GreetingEntity sayHello(@RequestBody Greeting greeting) {
+    public GreetingEntity sayHello(@RequestBody GreetingEntity greeting) {
 		return new GreetingEntity(counter.incrementAndGet(), String.format(template, greeting.getContent()));
     }
 	
