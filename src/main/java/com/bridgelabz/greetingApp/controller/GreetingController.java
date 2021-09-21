@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -113,7 +114,28 @@ public class GreetingController {
 	public ResponseEntity<String> getEmployeeByID(@RequestParam(name = "id") int id) {
 		return new ResponseEntity<>(greetingService.getEmployeeByID(id), HttpStatus.OK);
 	}
+	/**
+	 * Purpose : To Edit a Greeting Messages in the Repository.
+	 * @param id
+	 * @param message
+	 * @return
+	 */
+
+	@PutMapping(value = "/updateGreeting")
+	public ResponseEntity<GreetingDTO> updateGreeting(@RequestParam(name = "id") int id,
+												   @RequestParam(name = "message") String message) {
+		return new ResponseEntity<>(greetingService.updateGreeting(id, message), HttpStatus.OK);
+	}
 	
-	
+	/**
+	 *  Purpose : To Delete a Greeting Messages in the Repository.
+	 * @param id
+	 * @return
+	 */
+
+	@DeleteMapping(value = "/deleteGreeting")
+	public ResponseEntity<String> deleteGreeting(@RequestParam(name = "id") int id) {
+		return new ResponseEntity<>(greetingService.deleteGreeting(id), HttpStatus.OK);
+	}
 
 }
