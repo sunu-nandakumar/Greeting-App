@@ -1,5 +1,6 @@
 package com.bridgelabz.greetingApp.controller;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgelabz.greetingApp.dto.GreetingDTO;
 import com.bridgelabz.greetingApp.entity.GreetingEntity;
 import com.bridgelabz.greetingApp.service.GreetingService;
 
@@ -90,6 +92,22 @@ public class GreetingController {
 	public ResponseEntity<String> greeting(@RequestParam(value = "fname", defaultValue = "World") String fname,
 			@RequestParam(value = "lname", defaultValue = "") String lname) {
 		return new ResponseEntity<>(greetingService.getGreeting(fname, lname), HttpStatus.OK);
+	}
+	/**
+	
+	 * Purpose : Ability to store multiple Greeting Message using POST method
+	 			 and display the messages using GET method
+	 * @return
+	 */
+
+	@GetMapping(value = "/getGreetingDetails")
+	public ResponseEntity<List<GreetingDTO>> getGreeting() {
+	    return new ResponseEntity<>(greetingService.getGreeting(), HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/addGreetingDetails")
+	public ResponseEntity<GreetingDTO> addGreeting(@RequestBody GreetingDTO greeting) {
+	    return new ResponseEntity<>(greetingService.addGreeting(greeting), HttpStatus.OK);
 	}
 	
 	

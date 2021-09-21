@@ -16,4 +16,4 @@ public class GreetingEntity {
 	public String getContent() {
 		return content;
 }
-}
+	}
